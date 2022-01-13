@@ -16,5 +16,6 @@ public class MappingConfigurations : Profile
         CreateMap<Event, AddEventRequestDto>().ReverseMap();
         CreateMap<Event, EventRequestDto>().ReverseMap();
         CreateMap<Event, EventResponseDto>().ReverseMap();
+        CreateMap<Operator, OperatorResponseDto>().ReverseMap();
     }
 }

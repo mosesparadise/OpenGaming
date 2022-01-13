@@ -1,7 +1,4 @@
-﻿using MessagePack.Formatters;
-using OpenGaming.Api.Services;
-
-namespace OpenGaming.Api.Infrastructure.Entities;
+﻿namespace OpenGaming.Api.Infrastructure.Entities;
 
 public class Event : AuditableEntity
 {
@@ -11,5 +8,7 @@ public class Event : AuditableEntity
     public EventStatusType StatusType { get; set; }
     public string EventStatusDescription { get; set; }
     public Guid PunterId { get; set; }
+    public Guid OperatorId { get; set; }
     public Punter Punter { get; set; }
+    public Operator Operator { get; set; }
 }

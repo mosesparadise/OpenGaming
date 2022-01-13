@@ -11,8 +11,8 @@ using OpenGaming.Api.Infrastructure;
 namespace OpenGaming.Api.Migrations
 {
     [DbContext(typeof(GamingContext))]
-    [Migration("20220113165021_AddEntityUpdate")]
-    partial class AddEntityUpdate
+    [Migration("20220113225112_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace OpenGaming.Api.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("OperatorId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid>("PunterId")
                         .HasColumnType("char(36)");
 
@@ -56,9 +59,43 @@ namespace OpenGaming.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OperatorId");
+
                     b.HasIndex("PunterId");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("OpenGaming.Api.Infrastructure.Entities.Operator", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LicenceCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("OperatorName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LicenceCode")
+                        .IsUnique();
+
+                    b.ToTable("Operators");
                 });
 
             modelBuilder.Entity("OpenGaming.Api.Infrastructure.Entities.Punter", b =>
@@ -92,6 +129,10 @@ namespace OpenGaming.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("RegisteredBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int?>("RiskLevel")
                         .HasColumnType("int");
 
@@ -102,13 +143,26 @@ namespace OpenGaming.Api.Migrations
 
             modelBuilder.Entity("OpenGaming.Api.Infrastructure.Entities.Event", b =>
                 {
+                    b.HasOne("OpenGaming.Api.Infrastructure.Entities.Operator", "Operator")
+                        .WithMany("Events")
+                        .HasForeignKey("OperatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("OpenGaming.Api.Infrastructure.Entities.Punter", "Punter")
                         .WithMany("Events")
                         .HasForeignKey("PunterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Operator");
+
                     b.Navigation("Punter");
+                });
+
+            modelBuilder.Entity("OpenGaming.Api.Infrastructure.Entities.Operator", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("OpenGaming.Api.Infrastructure.Entities.Punter", b =>

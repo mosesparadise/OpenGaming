@@ -1,10 +1,13 @@
-﻿namespace OpenGaming.Api.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OpenGaming.Api.Model;
 
 public class AddPunterRequestDto //: BaseRequestDto
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public DateTime DateOfBirth { get; set; }
-    public string Address { get; set; }
-    public string PostCode { get; set; }
+    [Required] public string FirstName { get; set; }
+    [Required] public string LastName { get; set; }
+    [Required] public DateTime DateOfBirth { get; set; }
+    [Required] public string Address { get; set; }
+    [Required] public string PostCode { get; set; }
+    [Required] public Guid OperatorId { get; set; }
 }

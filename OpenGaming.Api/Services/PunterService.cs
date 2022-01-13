@@ -25,13 +25,18 @@ public class PunterService : IPunterService
         var punter = _mapper.Map<Punter>(requestDto);
         try
         {
+            var operatorModel =
+                await _context.Operators.FirstOrDefaultAsync(x => x.Id == requestDto.OperatorId, cancellationToken);
+            if (operatorModel == null)
+                throw new Exception($"invalid operator id {requestDto.OperatorId}");
+            punter.RegisteredBy = operatorModel.OperatorName;
             _context.Punters.Add(punter);
             await _context.SaveChangesAsync(cancellationToken);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, exception.Message);
-            return null;
+            throw;
         }
 
         return _mapper.Map<AddPunterResponseDto>(punter);

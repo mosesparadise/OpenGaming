@@ -10,5 +10,6 @@ public class Punter : AuditableEntity
     public string Address { get; set; }
     public string PostCode { get; set; }
     public PunterRiskLevel? RiskLevel { get; set; }
+    public string RegisteredBy { get; set; }
     public List<Event> Events { get; set; }
 }

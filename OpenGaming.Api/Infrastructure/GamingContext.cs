@@ -11,6 +11,7 @@ public class GamingContext : DbContext
 
     public DbSet<Punter> Punters { get; set; }
     public DbSet<Event> Events { get; set; }
+    public DbSet<Operator> Operators { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

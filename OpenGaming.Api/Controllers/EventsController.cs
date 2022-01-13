@@ -8,6 +8,7 @@ namespace OpenGaming.Api.Controllers;
 [Route("api/[controller]")]
 // [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 [ApiController]
+[Produces("application/json")]
 public class EventsController : ControllerBase
 {
     private readonly IEventService _eventService;
@@ -17,7 +18,7 @@ public class EventsController : ControllerBase
         _eventService = eventService;
     }
 
-    [HttpGet]
+    [HttpGet("{eventId:guid}")]
     public async Task<IActionResult> Get(Guid eventId, CancellationToken cancellationToken)
     {
         var eventModel = await _eventService.GetEvent(eventId, cancellationToken);
@@ -32,9 +33,9 @@ public class EventsController : ControllerBase
         if (eventModel == null) return BadRequest();
         return Ok(eventModel);
     }
-    
+
     [HttpGet]
-    [Route("{punterId:guid}")]
+    [Route("punter/{punterId:guid}")]
     public async Task<IActionResult> GetPunterEvents(Guid punterId, CancellationToken cancellationToken)
     {
         var events = await _eventService.GetPunterEvents(punterId, cancellationToken);

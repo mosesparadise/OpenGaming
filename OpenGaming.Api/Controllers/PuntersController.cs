@@ -17,7 +17,7 @@ public class PuntersController : ControllerBase
         _punterService = punterService;
     }
 
-    [HttpGet]
+    [HttpGet("{punterId:required}")]
     public async Task<IActionResult> Get(Guid punterId, CancellationToken cancellationToken)
     {
         var punter = await _punterService.GetPunter(punterId, cancellationToken);
