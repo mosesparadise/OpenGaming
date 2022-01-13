@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IPunterService, PunterService>();
         services.AddScoped<IEventService, EventService>();
+        services.AddScoped<IRiskService, RiskService>();
         return services;
     }
 }

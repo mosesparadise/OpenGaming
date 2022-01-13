@@ -8,11 +8,11 @@ namespace OpenGaming.Api.Controllers;
 [Route("api/[controller]")]
 // [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 [ApiController]
-public class PunterController : ControllerBase
+public class PuntersController : ControllerBase
 {
     private readonly IPunterService _punterService;
 
-    public PunterController(IPunterService punterService)
+    public PuntersController(IPunterService punterService)
     {
         _punterService = punterService;
     }

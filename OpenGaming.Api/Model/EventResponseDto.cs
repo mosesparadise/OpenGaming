@@ -9,4 +9,5 @@ public class EventResponseDto : BaseResponseDto
     public DateTime EventDateTime { get; set; }
     public EventStatusType StatusType { get; set; }
     public string EventStatusDescription { get; set; }
+    public Guid PunterId { get; set; }
 }

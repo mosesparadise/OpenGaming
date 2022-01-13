@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenGaming.Api.Infrastructure;
 
@@ -10,9 +11,10 @@ using OpenGaming.Api.Infrastructure;
 namespace OpenGaming.Api.Migrations
 {
     [DbContext(typeof(GamingContext))]
-    partial class GamingContextModelSnapshot : ModelSnapshot
+    [Migration("20220113164820_AddPunterEventsRelationship")]
+    partial class AddPunterEventsRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,6 @@ namespace OpenGaming.Api.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("EventStatusDescription")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime?>("LastModifiedDate")

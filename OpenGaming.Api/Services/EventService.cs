@@ -24,13 +24,15 @@ public class EventService : IEventService
         var eventModel = _mapper.Map<Event>(requestDto);
         try
         {
+            if (!(await _context.Punters.AnyAsync(x => x.Id == requestDto.PunterId, cancellationToken)))
+                throw new Exception($"Invalid punterId ({requestDto.PunterId})");
             await _context.Events.AddAsync(eventModel);
             await _context.SaveChangesAsync(cancellationToken);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, exception.Message);
-            return null;
+            throw;
         }
 
         return _mapper.Map<AddEventResponseDto>(eventModel);
@@ -43,5 +45,11 @@ public class EventService : IEventService
         if (eventModel == null)
             return null;
         return _mapper.Map<EventResponseDto>(eventModel);
+    }
+
+    public async Task<List<EventResponseDto>> GetPunterEvents(Guid punterId, CancellationToken cancellationToken)
+    {
+        var eventModels = await _context.Events.Where(x => x.PunterId == punterId).ToListAsync(cancellationToken);
+        return _mapper.Map<List<EventResponseDto>>(eventModels);
     }
 }

@@ -8,5 +8,6 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
     public void Configure(EntityTypeBuilder<Event> builder)
     {
         builder.AddIdGuidValueGenerator();
+        builder.HasOne(x => x.Punter).WithMany(x => x.Events).HasForeignKey(x => x.PunterId);
     }
 }
