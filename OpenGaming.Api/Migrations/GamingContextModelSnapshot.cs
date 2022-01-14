@@ -25,6 +25,10 @@ namespace OpenGaming.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(14, 2)
+                        .HasColumnType("decimal(14,2)");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");
 
@@ -51,6 +55,11 @@ namespace OpenGaming.Api.Migrations
 
                     b.Property<Guid>("PunterId")
                         .HasColumnType("char(36)");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
 
                     b.Property<int>("StatusType")
                         .HasColumnType("int");

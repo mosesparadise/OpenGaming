@@ -10,5 +10,7 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.AddIdGuidValueGenerator();
         builder.HasOne(x => x.Punter).WithMany(x => x.Events).HasForeignKey(x => x.PunterId);
         builder.HasOne(x => x.Operator).WithMany(x => x.Events).HasForeignKey(x => x.OperatorId);
+        builder.Property(x => x.Amount).HasPrecision(14, 2);
+        builder.Property(x => x.Status).HasDefaultValue(true);
     }
 }
